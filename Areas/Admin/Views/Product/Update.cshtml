@@ -1,0 +1,51 @@
+﻿@model THLTW_BT3.Models.Product
+
+@{
+    ViewData["Title"] = "Cập nhật sản phẩm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label for="Name">Tên sản phẩm</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Price">Giá</label>
+        <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" required />
+    </div>
+
+    <div class="form-group">
+        <label for="CategoryId">Danh mục</label>
+        <select class="form-control" id="CategoryId" name="CategoryId" required>
+            @foreach (var category in ViewBag.Categories as SelectList)
+            {
+                if (category.Value == Model.CategoryId.ToString())
+                {
+                            <option value="@category.Value" selected>@category.Text</option>
+                }
+                else
+                {
+                            <option value="@category.Value">@category.Text</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Mô tả</label>
+        <textarea class="form-control" id="Description" name="Description">@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="ImageUrl">Hình ảnh sản phẩm</label>
+        <input type="file" class="form-control" id="ImageUrl" name="imageUrl" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
+    <a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Quay lại</a>
+</form>

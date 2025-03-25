@@ -1,0 +1,19 @@
+﻿@model THLTW_BT3.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa loại sản phẩm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Bạn có chắc chắn muốn xóa loại sản phẩm này không?</h3>
+
+<div>
+    <strong>@Model.Name</strong>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "Categories")" class="btn btn-secondary">Quay lại danh sách</a>
+</form>

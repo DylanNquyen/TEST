@@ -1,0 +1,22 @@
+﻿@model THLTW_BT3.Models.Category
+
+@{
+    ViewData["Title"] = "Thêm loại sản phẩm mới";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Tên loại</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thêm loại</button>
+    <a asp-action="Index" asp-controller="Categories" class="btn btn-secondary">Quay lại danh sách</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,21 @@
+﻿@model THLTW_BT3.Models.Product
+
+@{
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Bạn có chắc chắn muốn xóa sản phẩm này không?</p>
+
+<div>
+    <h3>@Model.Name</h3>
+    <p><strong>Giá:</strong> @Model.Price.ToString("C")</p>
+    <p><strong>Mô tả:</strong> @Model.Description</p>
+    <p><strong>Danh mục:</strong> @Model.Category.Name</p>
+</div>
+
+<form method="post" action="@Url.Action("DeleteConfirmed", "Product", new { id = Model.Id })">
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="@Url.Action("Index", "Product")" class="btn btn-secondary">Quay lại</a>
+</form>

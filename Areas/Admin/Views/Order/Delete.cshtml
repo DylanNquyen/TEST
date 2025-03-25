@@ -1,0 +1,50 @@
+﻿@model THLTW_BT3.Models.Order
+
+@{
+    ViewData["Title"] = "Xóa đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-center">@ViewData["Title"]</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Xác nhận xóa đơn hàng #@Model.Id</h5>
+            <p class="text-danger">Bạn có chắc chắn muốn xóa đơn hàng này không? Hành động này không thể hoàn tác.</p>
+
+            <dl class="row">
+                <dt class="col-sm-3">ID Khách hàng</dt>
+                <dd class="col-sm-9">@Model.CustomerId</dd>
+
+                <dt class="col-sm-3">Tên khách hàng</dt>
+                <dd class="col-sm-9">@Model.Customer?.FullName</dd>
+
+                <dt class="col-sm-3">Ngày đặt hàng</dt>
+                <dd class="col-sm-9">@Model.OrderDate.ToString("dd/MM/yyyy")</dd>
+
+                <dt class="col-sm-3">Tổng tiền</dt>
+                <dd class="col-sm-9">@Model.TotalAmount.ToString("C")</dd>
+
+                <dt class="col-sm-3">Trạng thái</dt>
+                <dd class="col-sm-9">
+                    <span class="badge @Model.Status.ToBadgeClass()">
+                        @Model.Status
+                    </span>
+                </dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Quay lại
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash me-2"></i>Xóa
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

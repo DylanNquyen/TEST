@@ -1,0 +1,61 @@
+﻿@model IEnumerable<THLTW_BT3.Models.Product>
+
+@{
+    ViewData["Title"] = "Dylan Sport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Slideshow sản phẩm -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
+    @if (Model == null || !Model.Any())
+    {
+            <p class="text-center text-muted">Hiện tại không có sản phẩm nào.</p>
+    }
+    else
+    {
+            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                @{
+                    var products = Model.ToList();
+                    int itemsPerSlide = 4; // Số sản phẩm trên mỗi slide
+                    int totalSlides = (int)Math.Ceiling((double)products.Count / itemsPerSlide);
+
+                    for (int i = 0; i < totalSlides; i++)
+                    {
+                        var slideProducts = products.Skip(i * itemsPerSlide).Take(itemsPerSlide).ToList();
+                                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                                        <div class="row">
+                                @foreach (var product in slideProducts)
+                                {
+                                                    <div class="col-md-3 mb-4">
+                                                        <div class="product-card card shadow-sm">
+                                                            <img src="@(product.Images != null && product.Images.Any() ? product.Images.First().Url : "/images/default-product.jpg")" class="card-img-top" alt="@product.Name">
+                                                            <div class="card-body text-center">
+                                                                <h5 class="card-title">@product.Name</h5>
+                                                                <p class="card-text">
+                                                                    <span>@product.Price.ToString("C")</span>
+                                                                </p>
+                                                                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-dark">
+                                                                    <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                }
+                                        </div>
+                                    </div>
+                    }
+                }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+    }
+</div>

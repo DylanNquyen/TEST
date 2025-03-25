@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Dylan Shop</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Bootstrap CSS (đã có sẵn nếu dùng layout chuẩn) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/THLTW_BT3.styles.css" asp-append-version="true" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1 0 auto;
+            padding-bottom: 20px; /* Giảm padding-bottom để tiết kiệm không gian */
+        }
+        .navbar-brand {
+            font-size: 1.2rem; /* Giảm font-size để navbar nhỏ gọn hơn */
+            font-weight: bold;
+        }
+        .slogan {
+            font-size: 0.8rem; /* Giảm font-size của slogan */
+            color: #6c757d;
+        }
+        .navbar {
+            padding: 5px 0; /* Giảm padding của navbar */
+        }
+        .nav-item {
+            margin: 0 5px; /* Giảm khoảng cách giữa các nav-item */
+        }
+        .nav-link {
+            font-size: 0.9rem; /* Giảm font-size của nav-link */
+        }
+    </style>
+</head>
+<body class="@(ViewData["Title"] == "Đăng nhập" || ViewData["Title"] == "Đăng ký" ? "auth-page" : "")">
+    <!-- Canvas cho hiệu ứng hạt -->
+    <canvas id="particles"></canvas>
+
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-3">
+    <div class="container">
+        <!-- Logo thương hiệu -->
+        <a class="navbar-brand d-flex flex-column" href="/">
+            <strong>Dylan Shop</strong>
+            <small class="slogan text-muted">Chất lượng vượt trội - Phong cách lịch lãm</small>
+        </a>
+
+        <!-- Toggle button cho mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menu điều hướng -->
+        <div class="collapse navbar-collapse justify-content-end" id="mainNavbar">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link" asp-controller="Product" asp-action="Index">Sản phẩm</a></li>
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee") || User.IsInRole("Company"))
+                        {
+                        <li class="nav-item"><a class="nav-link" asp-controller="Categories" asp-action="Index">Danh mục</a></li>
+                        }
+                        @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                        {
+                        <li class="nav-item"><a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Đơn hàng</a></li>
+                        }
+            </ul>
+            <partial name="_LoginPartial.cshtml" />
+        </div>
+    </div>
+</nav>
+
+</header>
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+<footer class="footer bg-dark text-white py-4 mt-auto">
+    <div class="container">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 mb-1">
+                <h5 class="fw-bold">Dylan Shop</h5>
+                <p class="mb-1">Hotline: 19006530</p>
+                <p class="mb-1">Email: DylanShop@gmail.com</p>
+                @* <p>Email: <a href="mailto:DylanShop@gmail.com" class="text-white">DylanShop@gmail.com</a></p> *@
+            </div>
+            <div class="col-md-3 mb-1">
+                <h5 class="fw-bold">Địa chỉ</h5>
+                <p>Quận 9, TP.HCM</p>
+            </div>
+            <div class="col-md-3 mb-1">
+                <h5 class="fw-bold">Bản quyền</h5>
+                <p>© 2025 Dylan Shop</p>
+            </div>
+            <div class="col-md-3 mb-">
+                <h5 class="fw-bold">Kết nối</h5>
+                <div>
+                    <a href="https://www.facebook.com/profile.php?id=100041301602063" class="text-white me-3" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://github.com/DylanNquyen" class="text-white me-3" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.reddit.com/user/cCtrlShiftNn/" class="text-white" target="_blank"><i class="fab fa-reddit"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/particles.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

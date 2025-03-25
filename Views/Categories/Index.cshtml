@@ -1,0 +1,35 @@
+﻿@model IEnumerable<THLTW_BT3.Models.Category>
+
+@{
+    ViewData["Title"] = "Danh sách các loại sản phẩm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a href="@Url.Action("Add", "Categories")" class="btn btn-primary">Thêm loại mới</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tên loại</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>
+                    <a href="@Url.Action("Display", "Categories", new { id = category.Id })" class="btn btn-info">Xem</a>
+                    <a href="@Url.Action("Update", "Categories", new { id = category.Id })" class="btn btn-warning">Cập nhật</a>
+                    <a href="@Url.Action("Delete", "Categories", new { id = category.Id })" class="btn btn-danger">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

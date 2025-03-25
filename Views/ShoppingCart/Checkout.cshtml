@@ -1,0 +1,28 @@
+﻿@model THLTW_BT3.Models.Order
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Thông tin thanh toán</h2>
+
+    <form asp-action="Checkout" method="post" class="row g-3 needs-validation" novalidate>
+        <div class="col-md-6">
+            <label asp-for="Notes" class="form-label">Ghi chú đơn hàng</label>
+            <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Ví dụ: Giao hàng buổi sáng..." required></textarea>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Status" class="form-label">Trạng thái</label>
+            <select asp-for="Status" class="form-select" required>
+                <option value="Pending">Đang xử lý</option>
+                <option value="Shipped">Đã giao</option>
+                <option value="Delivered">Hoàn tất</option>
+            </select>
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary btn-lg px-5">Xác nhận đặt hàng</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,51 @@
+﻿@model ShoppingCart
+@{
+    ViewData["Title"] = "Giỏ hàng";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">🛒 Giỏ hàng của bạn</h2>
+
+    @if (!Model.Items.Any())
+    {
+            <div class="alert alert-info text-center">
+                Giỏ hàng trống. <a href="/" class="text-decoration-underline">Mua sắm ngay</a>!
+            </div>
+    }
+    else
+    {
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                            <tr class="fade-in">
+                                <td>@item.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>@string.Format("{0:N0}$", item.Price)</td>
+                                <td>@string.Format("{0:N0}$", item.Price * item.Quantity)</td>
+                                <td>
+                                    <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId"
+                                       class="btn btn-sm btn-outline-danger">❌</a>
+                                </td>
+                            </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-end">
+                <a asp-action="Checkout" class="btn btn-success btn-lg px-5">Thanh toán</a>
+            </div>
+    }
+</div>
+
+

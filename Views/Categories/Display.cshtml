@@ -1,0 +1,14 @@
+﻿@model THLTW_BT3.Models.Category
+
+@{
+    ViewData["Title"] = "Chi tiết loại sản phẩm";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h3>Tên loại: @Model.Name</h3>
+    <p>Chi tiết về loại sản phẩm này.</p>
+</div>
+
+<a href="@Url.Action("Index", "Categories")" class="btn btn-primary">Quay lại danh sách</a>
